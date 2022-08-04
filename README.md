@@ -2,7 +2,7 @@
 A minesweeper clone using pygame
 
 This project was initially developed as an attempt to develop a deeper understanding behind 3D arrays and class hierarchies in a simple environment.
-The development goal for crocsweeper is as follows:
+The development goals for crocsweeper are as follows:
 
 1. Display a grid of tiles which have hidden values. These hidden values should be the presence of a croc on the tile, or the number of nearby crocs
 on each tile.
