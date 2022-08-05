@@ -10,7 +10,7 @@ if (__name__ == "__main__") :
     pyg.init()
     pyg.time.Clock()
 
-    size = [1200, 800]
+    size = [800, 800]
 
     screen = pyg.display.set_mode(size)
 
@@ -25,9 +25,11 @@ if (__name__ == "__main__") :
 
     # pyg.time.wait(2000)
 
-    crocs = Play(size, 12, 8, screen)
+    crocs = Play(size, 2, 2, screen)
 
     crocs.draw_gameboard()
+    crocs.set_crocs(1)
+
 
     # i = 0
 
@@ -50,6 +52,11 @@ if (__name__ == "__main__") :
             # # end while
 
             crocs.tile_selection(a)
+            print("The number of nearby crocs is:", crocs.tiles[a[0]][a[1]][0])
+
+            if (crocs.tiles[a[0]][a[1]][0] > 0) :
+                print("And there is a croc on this tile!")
+            # end if
 
             print("Tile location is:", a)
         # end elif

@@ -25,10 +25,7 @@ class Gameboard() :
             while (k < y_tiles) :
                 c = 0
 
-                # self.tiles[i].append([])
-                # self.tiles[i][k] = 0
                 self.tiles[i].append([])
-                # self.tiles[i][k].append([])
 
                 while (c < 2) :
                     self.tiles[i][k].append(0)
@@ -78,26 +75,81 @@ class Gameboard() :
             srt[0] += self.screen[0] / x_tiles
             end[0] += self.screen[0] / x_tiles
 
-            pyg.draw.line(
-                self.surface, line_color, srt, end, 2
-            )
+            pyg.draw.line(self.surface, line_color, srt, end, 2)
             i += 1
         # end while
 
         pyg.display.flip() # flush input buffer to screen
-
         return
 
     # end draw_gameboard
 
-    # def probe_tile(self, x, y) :
-    #     return self.tiles[x][y][1]
+    def probe_tile(self, x, y) :
+        if (x == len(self.tiles) or y == len(self.tiles[0])) :
+            return 0                    # out of bounds
+        # end if
+
+        if (x < 0 or y < 0) :
+            return 0                    # out of bounds
+        # end if
+
+        return self.tiles[x][y][1]
 
     # end probe_tile
 
-    def reveal_tile(self, x, y) :
-        self.tiles[x][y][0] = self.tiles[x][y][1]
+    def set_crocs(self, croc_num) :
 
+        # TODO: too many crocs are being assigned
+        # TODO: not properly updating adjacent crocs number
+
+        if (self.screen[0] <= 0 or self.screen[1] <= 0) :
+            return -1                   # an error has occurred
+        # end if
+
+        xlen = len(self.tiles)
+        ylen = len(self.tiles[0])
+
+        i = 0
+
+        while (i < croc_num) :
+            from random import randint
+
+            # TODO: reassign croc to a new tile if one already present
+            x_pos = randint(0, xlen - 1)
+            y_pos = randint(0, ylen - 1)
+            self.tiles[x_pos][y_pos][1] = 1 # 1 means croc!
+
+            i += 1
+        # end while
+
+        x = 0
+
+        # apply the number of neighboring crocs to each tile
+        while (x < xlen) :
+
+            y = 0
+            
+            while (y < ylen) :
+
+                self.tiles[x][y][0] += self.probe_tile(x + 1, y + 1)
+                self.tiles[x][y][0] += self.probe_tile(x + 1 , y)
+                self.tiles[x][y][0] += self.probe_tile(x + 1, y - 1)
+                self.tiles[x][y][0] += self.probe_tile(x, y - 1)
+                self.tiles[x][y][0] += self.probe_tile(x - 1, y - 1)
+                self.tiles[x][y][0] += self.probe_tile(x - 1, y)
+                self.tiles[x][y][0] += self.probe_tile(x - 1, y + 1)
+                self.tiles[x][y][0] += self.probe_tile(x, y + 1)
+                y += 1
+
+            # end while
+            x += 1
+
+        # end while
+
+    # end set_crocs
+
+    def reveal_tile(self, x, y) :
+        # self.tiles[x][y][0] = self.tiles[x][y][1]
         return self.tiles[x][y][0]
 
     # end reveal_tile

@@ -20,7 +20,6 @@ class Play(Gameboard) :
 
         tile[0] = mouse_pos[0] // x_len
         tile[1] = mouse_pos[1] // y_len
-
         return
 
     # end tile_selection
