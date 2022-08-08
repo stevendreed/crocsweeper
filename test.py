@@ -6,6 +6,7 @@ from gameboard import Gameboard
 from play import Play
 
 if (__name__ == "__main__") :
+# execution guard-rails which ensure this only runs if run as main
 
     pyg.init()
     pyg.time.Clock()

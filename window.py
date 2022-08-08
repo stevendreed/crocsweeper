@@ -7,8 +7,7 @@ import pygame as pyg
 class Window():
 
 
-    def __init__(
-            self, width, height, color = (1, 1, 1)):
+    def __init__(self, width, height, color = (1, 1, 1)):
         self.screen = [0, 0]
         self.screen[0] = width
         self.screen[1] = height
