@@ -7,8 +7,7 @@ import pygame as pyg
 class Gameboard() :
 
 
-    def __init__(
-            self, screen, x_tiles, y_tiles, surface) :
+    def __init__(self, screen, x_tiles, y_tiles, surface) :
         self.screen = [0, 0]
         self.screen[0] = screen[0]
         self.screen[1] = screen[1]
@@ -27,7 +26,7 @@ class Gameboard() :
 
                 self.tiles[i].append([])
 
-                while (c < 2) :
+                while (c < 2) : # TODO: need to add another z element for visited flag
                     self.tiles[i][k].append(0)
                     c += 1
 
@@ -59,9 +58,7 @@ class Gameboard() :
             srt[1] += self.screen[1] / y_tiles
             end[1] += self.screen[1] / y_tiles
 
-            pyg.draw.line(
-                self.surface, line_color, srt, end, 2
-                )
+            pyg.draw.line(self.surface, line_color, srt, end, 2)
             i += 1
         # end while
 
@@ -99,15 +96,17 @@ class Gameboard() :
 
     def set_crocs(self, croc_num) :
 
-        # TODO: too many crocs are being assigned
-        # TODO: not properly updating adjacent crocs number
+        # TODO: if tile already has a croc, add to new tile instead
 
-        if (self.screen[0] <= 0 or self.screen[1] <= 0) :
+        
+        xlen = len(self.tiles)
+        ylen = len(self.tiles[0])
+
+        # if the board is not a valid size, do not add crocs
+        if (xlen <= 0 or ylen <= 0) :
             return -1                   # an error has occurred
         # end if
 
-        xlen = len(self.tiles)
-        ylen = len(self.tiles[0])
 
         i = 0
 
@@ -131,14 +130,30 @@ class Gameboard() :
             
             while (y < ylen) :
 
+                # add upper right
                 self.tiles[x][y][0] += self.probe_tile(x + 1, y + 1)
+
+                # add right
                 self.tiles[x][y][0] += self.probe_tile(x + 1 , y)
+
+                # add lower right
                 self.tiles[x][y][0] += self.probe_tile(x + 1, y - 1)
+
+                # add below
                 self.tiles[x][y][0] += self.probe_tile(x, y - 1)
+
+                # add lower left
                 self.tiles[x][y][0] += self.probe_tile(x - 1, y - 1)
+
+                # add left
                 self.tiles[x][y][0] += self.probe_tile(x - 1, y)
+
+                # add upper left
                 self.tiles[x][y][0] += self.probe_tile(x - 1, y + 1)
+
+                # add above
                 self.tiles[x][y][0] += self.probe_tile(x, y + 1)
+
                 y += 1
 
             # end while

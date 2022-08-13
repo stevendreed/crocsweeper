@@ -1,4 +1,4 @@
-# draw_gb.py
+# window.py
 
 import pygame as pyg
 # import sys
@@ -25,10 +25,12 @@ class Window():
         return
     # end __init__
 
-    def __del__(
-            self):
+    def __del__(self):
+
         # exit pygame display
         pyg.display.quit()
 
         return
     # end __del__
+
+# end Window

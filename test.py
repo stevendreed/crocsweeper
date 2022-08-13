@@ -5,9 +5,8 @@ from window import Window
 from gameboard import Gameboard
 from play import Play
 
-if (__name__ == "__main__") :
-# execution guard-rails which ensure this only runs if run as main
-
+# defined main function to avoid default global scope behavior (from py)
+def main() :
     pyg.init()
     pyg.time.Clock()
 
@@ -26,17 +25,21 @@ if (__name__ == "__main__") :
 
     # pyg.time.wait(2000)
 
-    crocs = Play(size, 2, 2, screen)
+    crocs = Play(size, 10, 10, screen)
 
     crocs.draw_gameboard()
-    crocs.set_crocs(1)
+    crocs.set_crocs(25)
 
 
     # i = 0
 
+    # mouse buttons for pygame:
     LEFT = 1
     RIGHT = 3
+
     running = True
+
+    print(crocs.tiles)
 
     a = [0, 0]
     while (running) :
@@ -55,7 +58,7 @@ if (__name__ == "__main__") :
             crocs.tile_selection(a)
             print("The number of nearby crocs is:", crocs.tiles[a[0]][a[1]][0])
 
-            if (crocs.tiles[a[0]][a[1]][0] > 0) :
+            if (crocs.tiles[a[0]][a[1]][1] > 0) :
                 print("And there is a croc on this tile!")
             # end if
 
@@ -77,4 +80,11 @@ if (__name__ == "__main__") :
         
     pyg.quit()
     
+
+
+
+if (__name__ == "__main__") :
+# execution guard-rails which ensure this only runs if run as main
+    main()
+
 # end if
