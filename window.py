@@ -1,4 +1,4 @@
-# draw_gb.py
+# window.py
 
 import pygame as pyg
 # import sys
@@ -7,8 +7,7 @@ import pygame as pyg
 class Window():
 
 
-    def __init__(
-            self, width, height, color = (1, 1, 1)):
+    def __init__(self, width, height, color = (1, 1, 1)):
         self.screen = [0, 0]
         self.screen[0] = width
         self.screen[1] = height
@@ -26,10 +25,12 @@ class Window():
         return
     # end __init__
 
-    def __del__(
-            self):
+    def __del__(self):
+
         # exit pygame display
         pyg.display.quit()
 
         return
     # end __del__
+
+# end Window
